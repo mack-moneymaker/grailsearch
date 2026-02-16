@@ -1,0 +1,4 @@
+production:
+  check_saved_searches:
+    class: CheckSavedSearchesJob
+    schedule: every hour

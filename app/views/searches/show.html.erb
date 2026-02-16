@@ -1,0 +1,127 @@
+<% content_for(:title) { @query.present? ? "#{@query} — Search Results" : "Search" } %>
+
+<div class="mx-auto max-w-7xl px-4 py-8">
+  <!-- Search Form -->
+  <form action="<%= search_path %>" method="get">
+    <div class="flex rounded-full border-2 border-gray-200 bg-white shadow-sm focus-within:border-indigo-500 transition max-w-3xl mx-auto">
+      <input type="text" name="q" value="<%= @query %>" placeholder="Search for clothing, shoes, accessories..."
+             class="flex-1 rounded-l-full px-6 py-3 outline-none placeholder-gray-400" autofocus>
+      <button type="submit" class="rounded-r-full bg-black px-6 py-3 text-white font-medium hover:bg-gray-800 transition">
+        Search
+      </button>
+    </div>
+
+    <div class="mt-4 max-w-3xl mx-auto grid grid-cols-2 gap-3 sm:grid-cols-6">
+      <input type="text" name="brand" value="<%= @brand %>" placeholder="Brand" class="rounded-lg border border-gray-200 px-3 py-2 text-sm">
+      <input type="text" name="size" value="<%= @size %>" placeholder="Size" class="rounded-lg border border-gray-200 px-3 py-2 text-sm">
+      <input type="text" name="color" value="<%= @color %>" placeholder="Color" class="rounded-lg border border-gray-200 px-3 py-2 text-sm">
+      <input type="number" name="min_price" value="<%= @min_price %>" placeholder="Min €" class="rounded-lg border border-gray-200 px-3 py-2 text-sm">
+      <input type="number" name="max_price" value="<%= @max_price %>" placeholder="Max €" class="rounded-lg border border-gray-200 px-3 py-2 text-sm">
+      <select name="category" class="rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-600">
+        <option value="">All</option>
+        <% %w[shoes tops bottoms outerwear accessories bags].each do |cat| %>
+          <option value="<%= cat %>" <%= "selected" if @category == cat %>><%= cat.capitalize %></option>
+        <% end %>
+      </select>
+    </div>
+  </form>
+
+  <% if @query.present? %>
+    <!-- Save Search Button -->
+    <% if logged_in? %>
+      <div class="mt-6 max-w-3xl mx-auto text-center">
+        <form action="<%= saved_searches_path %>" method="post" class="inline">
+          <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
+          <input type="hidden" name="saved_search[query]" value="<%= @query %>">
+          <input type="hidden" name="saved_search[brand]" value="<%= @brand %>">
+          <input type="hidden" name="saved_search[size]" value="<%= @size %>">
+          <input type="hidden" name="saved_search[color]" value="<%= @color %>">
+          <input type="hidden" name="saved_search[min_price]" value="<%= @min_price %>">
+          <input type="hidden" name="saved_search[max_price]" value="<%= @max_price %>">
+          <input type="hidden" name="saved_search[category]" value="<%= @category %>">
+          <button type="submit" class="rounded-full border-2 border-indigo-500 px-4 py-2 text-sm text-indigo-600 font-medium hover:bg-indigo-50 transition">
+            🔔 Save this search & get alerts
+          </button>
+        </form>
+      </div>
+    <% else %>
+      <div class="mt-6 max-w-3xl mx-auto text-center">
+        <a href="<%= signup_path %>" class="text-sm text-indigo-600 hover:text-indigo-800">Sign up to save this search & get alerts →</a>
+      </div>
+    <% end %>
+
+    <!-- Price Data -->
+    <% if @price_data %>
+      <div class="mt-6 max-w-3xl mx-auto rounded-lg bg-gray-50 p-4">
+        <h3 class="text-sm font-semibold text-gray-700">💰 Price insights for "<%= @query %>"</h3>
+        <div class="mt-2 flex gap-6 text-sm text-gray-600">
+          <span>Avg: <strong>€<%= @price_data[:current_avg]&.round(2) %></strong></span>
+          <span>Low: €<%= @price_data[:min]&.round(2) %></span>
+          <span>High: €<%= @price_data[:max]&.round(2) %></span>
+          <span>Trend:
+            <% case @price_data[:trend] %>
+            <% when "up" %> 📈 Rising
+            <% when "down" %> 📉 Falling
+            <% else %> ➡️ Stable
+            <% end %>
+          </span>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Cross-platform links -->
+    <% if @cross_platform_links.present? %>
+      <div class="mt-6 max-w-3xl mx-auto">
+        <p class="text-sm text-gray-500 mb-3">Also search on:</p>
+        <div class="flex flex-wrap gap-2">
+          <% @cross_platform_links.each do |link| %>
+            <a href="<%= link[:url] %>" target="_blank" rel="noopener"
+               class="inline-flex items-center gap-1 rounded-full border border-gray-200 px-4 py-2 text-sm font-medium text-gray-700 hover:bg-gray-50 transition">
+              <%= link[:platform] %> ↗
+            </a>
+          <% end %>
+        </div>
+      </div>
+    <% end %>
+
+    <!-- Results Grid -->
+    <% if @results.present? %>
+      <div class="mt-8 grid grid-cols-2 gap-4 sm:grid-cols-3 lg:grid-cols-4">
+        <% @results.each do |result| %>
+          <a href="<%= result[:url] %>" target="_blank" rel="noopener"
+             class="group rounded-xl border border-gray-100 bg-white overflow-hidden hover:shadow-lg transition">
+            <div class="aspect-square bg-gray-100 overflow-hidden">
+              <% if result[:image_url].present? %>
+                <img src="<%= result[:image_url] %>" alt="<%= result[:title] %>"
+                     class="h-full w-full object-cover group-hover:scale-105 transition" loading="lazy">
+              <% else %>
+                <div class="flex h-full items-center justify-center text-gray-300 text-4xl">📷</div>
+              <% end %>
+            </div>
+            <div class="p-3">
+              <div class="flex items-center gap-1 mb-1">
+                <span class="inline-block rounded-full px-2 py-0.5 text-xs font-medium
+                  <%= result[:platform] == 'ebay' ? 'bg-yellow-100 text-yellow-800' : 'bg-teal-100 text-teal-800' %>">
+                  <%= result[:platform].capitalize %>
+                </span>
+              </div>
+              <p class="text-sm font-medium text-gray-900 line-clamp-2"><%= result[:title] %></p>
+              <p class="mt-1 text-lg font-bold">
+                <%= result[:currency] == "EUR" ? "€" : result[:currency] %><%= result[:price]&.round(2) %>
+              </p>
+              <% if result[:condition].present? %>
+                <p class="text-xs text-gray-400"><%= result[:condition] %></p>
+              <% end %>
+            </div>
+          </a>
+        <% end %>
+      </div>
+    <% else %>
+      <div class="mt-16 text-center text-gray-400">
+        <p class="text-4xl">🔍</p>
+        <p class="mt-2 text-lg">No results found on eBay or Vinted.</p>
+        <p class="mt-1 text-sm">Try the platform links above, or adjust your search terms.</p>
+      </div>
+    <% end %>
+  <% end %>
+</div>

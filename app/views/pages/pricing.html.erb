@@ -1,0 +1,49 @@
+<% content_for(:title) { "Pricing" } %>
+
+<div class="mx-auto max-w-4xl px-4 py-16">
+  <h1 class="text-3xl font-bold text-center">Simple pricing</h1>
+  <p class="mt-2 text-center text-gray-500">Search is always free. Save searches and get alerts with Pro.</p>
+
+  <div class="mt-12 grid gap-8 sm:grid-cols-2">
+    <!-- Free -->
+    <div class="rounded-2xl border-2 border-gray-200 p-8">
+      <h2 class="text-lg font-semibold">Free</h2>
+      <p class="mt-1 text-gray-500 text-sm">Perfect for casual searching</p>
+      <p class="mt-6"><span class="text-4xl font-bold">€0</span><span class="text-gray-400">/month</span></p>
+      <ul class="mt-8 space-y-3 text-sm text-gray-600">
+        <li class="flex gap-2">✓ Unlimited manual searches</li>
+        <li class="flex gap-2">✓ Results from eBay & Vinted</li>
+        <li class="flex gap-2">✓ Direct links to Depop, Grailed, Vestiaire, Poshmark</li>
+        <li class="flex gap-2">✓ Up to 3 saved searches</li>
+        <li class="flex gap-2 text-gray-400">✗ Email alerts</li>
+        <li class="flex gap-2 text-gray-400">✗ Priority checking</li>
+      </ul>
+      <% if logged_in? %>
+        <div class="mt-8 text-center text-sm text-gray-400">Your current plan</div>
+      <% else %>
+        <a href="<%= signup_path %>" class="mt-8 block rounded-full border-2 border-gray-200 py-3 text-center font-medium hover:border-gray-400 transition">
+          Sign up free
+        </a>
+      <% end %>
+    </div>
+
+    <!-- Pro -->
+    <div class="rounded-2xl border-2 border-indigo-500 p-8 relative">
+      <span class="absolute -top-3 left-6 rounded-full bg-indigo-500 px-3 py-1 text-xs font-medium text-white">Popular</span>
+      <h2 class="text-lg font-semibold">Pro</h2>
+      <p class="mt-1 text-gray-500 text-sm">For serious grail hunters</p>
+      <p class="mt-6"><span class="text-4xl font-bold">€8</span><span class="text-gray-400">/month</span></p>
+      <ul class="mt-8 space-y-3 text-sm text-gray-600">
+        <li class="flex gap-2">✓ Everything in Free</li>
+        <li class="flex gap-2">✓ <strong>Unlimited</strong> saved searches</li>
+        <li class="flex gap-2">✓ Email alerts for new listings</li>
+        <li class="flex gap-2">✓ Priority checking (every hour)</li>
+        <li class="flex gap-2">✓ Price history & trends</li>
+        <li class="flex gap-2">✓ Early access to new platforms</li>
+      </ul>
+      <a href="#" class="mt-8 block rounded-full bg-black py-3 text-center text-white font-medium hover:bg-gray-800 transition">
+        Coming soon
+      </a>
+    </div>
+  </div>
+</div>

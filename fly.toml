@@ -1,0 +1,21 @@
+app = "grailsearch"
+primary_region = "cdg"
+
+[build]
+
+[http_service]
+  internal_port = 3000
+  force_https = true
+  auto_stop_machines = "stop"
+  auto_start_machines = true
+  min_machines_running = 0
+  processes = ["web"]
+
+[[vm]]
+  memory = "1gb"
+  cpu_kind = "shared"
+  cpus = 1
+
+[processes]
+  web = "bin/rails server -b 0.0.0.0 -p 3000"
+  worker = "bin/jobs"

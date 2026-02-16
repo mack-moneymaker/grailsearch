@@ -1,0 +1,110 @@
+<% content_for(:title) { "Find Your Grails Across Every Resale Platform" } %>
+<% content_for(:meta_description) { "Search Vinted, eBay, Depop, Grailed, Vestiaire Collective & Poshmark in one place. Find rare clothing, discontinued shoes, and fashion grails instantly." } %>
+
+<!-- Hero -->
+<section class="relative overflow-hidden">
+  <div class="mx-auto max-w-4xl px-4 pt-20 pb-16 text-center sm:pt-32 sm:pb-24">
+    <h1 class="text-4xl font-bold tracking-tight sm:text-6xl">
+      Find your grails.<br>
+      <span class="text-indigo-600">Every platform. One search.</span>
+    </h1>
+    <p class="mx-auto mt-6 max-w-2xl text-lg text-gray-500">
+      Search Vinted, eBay, Depop, Grailed, Vestiaire Collective & Poshmark simultaneously.
+      Stop opening 6 tabs — find rare clothing, shoes & accessories in seconds.
+    </p>
+
+    <!-- Search Form -->
+    <form action="<%= search_path %>" method="get" class="mx-auto mt-10 max-w-2xl">
+      <div class="flex rounded-full border-2 border-gray-200 bg-white shadow-lg focus-within:border-indigo-500 transition">
+        <input type="text" name="q" placeholder="What are you looking for? e.g. Nike Dunk Low Panda Size 42"
+               class="flex-1 rounded-l-full px-6 py-4 text-lg outline-none placeholder-gray-400"
+               autofocus>
+        <button type="submit" class="rounded-r-full bg-black px-8 py-4 text-white font-medium hover:bg-gray-800 transition">
+          Search
+        </button>
+      </div>
+
+      <!-- Quick filters (collapsed by default on mobile) -->
+      <details class="mt-4 text-left">
+        <summary class="cursor-pointer text-sm text-gray-500 hover:text-gray-700">+ Advanced filters</summary>
+        <div class="mt-3 grid grid-cols-2 gap-3 sm:grid-cols-4">
+          <input type="text" name="brand" placeholder="Brand" class="rounded-lg border border-gray-200 px-3 py-2 text-sm">
+          <input type="text" name="size" placeholder="Size" class="rounded-lg border border-gray-200 px-3 py-2 text-sm">
+          <input type="text" name="color" placeholder="Color" class="rounded-lg border border-gray-200 px-3 py-2 text-sm">
+          <select name="category" class="rounded-lg border border-gray-200 px-3 py-2 text-sm text-gray-600">
+            <option value="">All categories</option>
+            <option value="shoes">Shoes</option>
+            <option value="tops">Tops</option>
+            <option value="bottoms">Bottoms</option>
+            <option value="outerwear">Outerwear</option>
+            <option value="accessories">Accessories</option>
+            <option value="bags">Bags</option>
+          </select>
+          <input type="number" name="min_price" placeholder="Min €" class="rounded-lg border border-gray-200 px-3 py-2 text-sm">
+          <input type="number" name="max_price" placeholder="Max €" class="rounded-lg border border-gray-200 px-3 py-2 text-sm">
+        </div>
+      </details>
+    </form>
+  </div>
+</section>
+
+<!-- How it works -->
+<section class="bg-gray-50 py-16">
+  <div class="mx-auto max-w-5xl px-4">
+    <h2 class="text-center text-2xl font-bold">How it works</h2>
+    <div class="mt-10 grid gap-8 sm:grid-cols-3">
+      <div class="text-center">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 text-xl font-bold">1</div>
+        <h3 class="mt-4 font-semibold">Describe your grail</h3>
+        <p class="mt-2 text-sm text-gray-500">Enter the item, brand, size, color, and budget. Be as specific or broad as you like.</p>
+      </div>
+      <div class="text-center">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 text-xl font-bold">2</div>
+        <h3 class="mt-4 font-semibold">We search everywhere</h3>
+        <p class="mt-2 text-sm text-gray-500">Results from eBay & Vinted appear instantly. Direct links to Depop, Grailed, Vestiaire & Poshmark.</p>
+      </div>
+      <div class="text-center">
+        <div class="mx-auto flex h-12 w-12 items-center justify-center rounded-full bg-indigo-100 text-indigo-600 text-xl font-bold">3</div>
+        <h3 class="mt-4 font-semibold">Save & get alerts</h3>
+        <p class="mt-2 text-sm text-gray-500">Save your searches and get email alerts when new matching listings appear. Never miss a grail again.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- Platforms -->
+<section class="py-16">
+  <div class="mx-auto max-w-5xl px-4 text-center">
+    <h2 class="text-2xl font-bold">Platforms we search</h2>
+    <p class="mt-2 text-gray-500">One search, six platforms</p>
+    <div class="mt-8 flex flex-wrap items-center justify-center gap-8">
+      <% %w[eBay Vinted Depop Grailed Vestiaire\ Collective Poshmark].each do |platform| %>
+        <span class="text-lg font-medium text-gray-400 hover:text-gray-700 transition"><%= platform %></span>
+      <% end %>
+    </div>
+  </div>
+</section>
+
+<!-- SEO Content -->
+<section class="bg-gray-50 py-16">
+  <div class="mx-auto max-w-3xl px-4">
+    <h2 class="text-2xl font-bold text-center">The smarter way to find rare fashion</h2>
+    <div class="mt-6 space-y-4 text-gray-600 text-sm leading-relaxed">
+      <p>Tired of searching the same thing on Vinted, then Depop, then eBay, then Grailed? <strong>GrailSearch</strong> aggregates results from all major resale platforms so you can find that discontinued Nike colorway, that sold-out Stüssy hoodie, or that vintage Helmut Lang piece — all from one search bar.</p>
+      <p>Whether you call it a grail, a holy grail, or just "that one piece I've been looking for", we help you find it faster. Our search covers <strong>eBay, Vinted, Depop, Grailed, Vestiaire Collective, and Poshmark</strong> — the biggest secondhand fashion marketplaces in the world.</p>
+      <p>Set up alerts and we'll email you the moment new listings match your criteria. No more checking 6 apps every morning. Just GrailSearch.</p>
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="py-16">
+  <div class="mx-auto max-w-2xl px-4 text-center">
+    <h2 class="text-2xl font-bold">Ready to find your grail?</h2>
+    <p class="mt-2 text-gray-500">Free to search. Sign up to save searches and get alerts.</p>
+    <div class="mt-6 flex justify-center gap-4">
+      <a href="<%= search_path %>" class="rounded-full bg-black px-8 py-3 text-white font-medium hover:bg-gray-800 transition">Start searching</a>
+      <a href="<%= signup_path %>" class="rounded-full border-2 border-gray-200 px-8 py-3 font-medium hover:border-gray-400 transition">Create account</a>
+    </div>
+  </div>
+</section>

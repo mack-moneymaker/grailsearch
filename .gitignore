@@ -1,0 +1,16 @@
+# See https://help.github.com/articles/ignoring-files
+/log/*
+/tmp/*
+!/log/.keep
+!/tmp/.keep
+/storage/*
+!/storage/.keep
+/db/*.sqlite3
+/db/*.sqlite3-journal
+/public/assets
+.byebug_history
+/config/master.key
+/config/credentials/*.key
+.env
+node_modules/
+.kamal/

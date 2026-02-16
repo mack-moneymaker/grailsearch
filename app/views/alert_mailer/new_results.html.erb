@@ -1,0 +1,29 @@
+<h2>New listings for "<%= @saved_search.query %>"</h2>
+<p>Hey <%= @user.name %>, we found <%= @new_results.size %> new listing<%= @new_results.size == 1 ? '' : 's' %> matching your search!</p>
+
+<table cellpadding="8" cellspacing="0" style="border-collapse: collapse; width: 100%;">
+  <% @new_results.each do |result| %>
+    <tr style="border-bottom: 1px solid #eee;">
+      <td style="width: 80px;">
+        <% if result.image_url.present? %>
+          <img src="<%= result.image_url %>" width="80" height="80" style="object-fit: cover; border-radius: 8px;">
+        <% end %>
+      </td>
+      <td>
+        <strong><%= result.title %></strong><br>
+        <span style="color: #666;"><%= result.platform.capitalize %></span> ·
+        <strong><%= result.currency == "EUR" ? "€" : result.currency %><%= result.price&.round(2) %></strong>
+        <% if result.condition.present? %>
+          · <span style="color: #999;"><%= result.condition %></span>
+        <% end %>
+        <br>
+        <a href="<%= result.url %>" style="color: #4F46E5;">View listing →</a>
+      </td>
+    </tr>
+  <% end %>
+</table>
+
+<p style="margin-top: 24px; color: #999; font-size: 12px;">
+  You're receiving this because you saved a search on GrailSearch.
+  <a href="#">Manage your searches</a>
+</p>
