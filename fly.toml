@@ -1,6 +1,9 @@
 app = "grailsearch-app"
 primary_region = "cdg"
 
+[deploy]
+  release_command = "bin/rails db:prepare"
+
 [build]
 
 [http_service]
