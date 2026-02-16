@@ -14,12 +14,12 @@
     </p>
 
     <!-- Search Form -->
-    <form action="<%= search_path %>" method="get" class="mx-auto mt-10 max-w-2xl">
-      <div class="flex rounded-full border-2 border-gray-200 bg-white shadow-lg focus-within:border-indigo-500 transition">
-        <input type="text" name="q" placeholder="What are you looking for? e.g. Nike Dunk Low Panda Size 42"
-               class="flex-1 rounded-l-full px-6 py-4 text-lg outline-none placeholder-gray-400"
+    <form action="<%= search_path %>" method="get" class="mx-auto mt-10 max-w-2xl px-2">
+      <div class="flex rounded-2xl sm:rounded-full border-2 border-gray-200 bg-white shadow-lg focus-within:border-indigo-500 transition">
+        <input type="text" name="q" placeholder="Nike Dunk Low Panda Size 42..."
+               class="flex-1 min-w-0 rounded-l-2xl sm:rounded-l-full px-4 sm:px-6 py-3 sm:py-4 text-base sm:text-lg outline-none placeholder-gray-400"
                autofocus>
-        <button type="submit" class="rounded-r-full bg-black px-8 py-4 text-white font-medium hover:bg-gray-800 transition">
+        <button type="submit" class="rounded-r-2xl sm:rounded-r-full bg-black px-5 sm:px-8 py-3 sm:py-4 text-white font-medium hover:bg-gray-800 transition shrink-0">
           Search
         </button>
       </div>
