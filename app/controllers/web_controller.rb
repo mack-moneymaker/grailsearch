@@ -1,6 +1,5 @@
 class WebController < ActionController::Base
-  include Pagy::Backend
-
+  layout "application"
   helper_method :current_user, :logged_in?
 
   private
