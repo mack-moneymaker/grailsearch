@@ -1,4 +1,4 @@
-app = "grailsearch"
+app = "grailsearch-app"
 primary_region = "cdg"
 
 [build]
