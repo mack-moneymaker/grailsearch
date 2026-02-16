@@ -59,11 +59,11 @@
           <span>Low: €<%= @price_data[:min]&.round(2) %></span>
           <span>High: €<%= @price_data[:max]&.round(2) %></span>
           <span>Trend:
-            <% case @price_data[:trend] %>
-            <% when "up" %> 📈 Rising
-            <% when "down" %> 📉 Falling
-            <% else %> ➡️ Stable
-            <% end %>
+            <%= case @price_data[:trend]
+                when "up" then "📈 Rising"
+                when "down" then "📉 Falling"
+                else "➡️ Stable"
+                end %>
           </span>
         </div>
       </div>
