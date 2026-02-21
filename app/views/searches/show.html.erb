@@ -28,7 +28,7 @@
 
   <% if @query.present? %>
     <!-- Save Search Button -->
-    <% if logged_in? %>
+    <% if logged_in? && current_user.can_create_saved_search? %>
       <div class="mt-6 max-w-3xl mx-auto text-center">
         <form action="<%= saved_searches_path %>" method="post" class="inline">
           <%= hidden_field_tag :authenticity_token, form_authenticity_token %>
@@ -43,6 +43,15 @@
             🔔 Save this search & get alerts
           </button>
         </form>
+      </div>
+    <% elsif logged_in? && !current_user.can_create_saved_search? %>
+      <div class="mt-6 max-w-3xl mx-auto text-center">
+        <div class="inline-flex items-center gap-3 rounded-full bg-indigo-50 px-5 py-2">
+          <span class="text-sm text-indigo-700">You've used all 3 free saved searches</span>
+          <a href="<%= pricing_path %>" class="rounded-full bg-indigo-600 px-4 py-1.5 text-sm text-white font-medium hover:bg-indigo-700 transition">
+            Upgrade to Pro ✨
+          </a>
+        </div>
       </div>
     <% else %>
       <div class="mt-6 max-w-3xl mx-auto text-center">

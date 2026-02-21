@@ -1,7 +1,8 @@
-<% content_for(:title) { "Pricing" } %>
+<% content_for(:title) { "Pricing — Free & Pro Plans" } %>
+<% content_for(:meta_description) { "GrailSearch is free to use. Upgrade to Pro for €8/month for unlimited saved searches, hourly email alerts, and price tracking across all resale platforms." } %>
 
 <div class="mx-auto max-w-4xl px-4 py-16">
-  <h1 class="text-3xl font-bold text-center">Simple pricing</h1>
+  <h1 class="text-3xl font-bold text-center">Simple, transparent pricing</h1>
   <p class="mt-2 text-center text-gray-500">Search is always free. Save searches and get alerts with Pro.</p>
 
   <div class="mt-12 grid gap-8 sm:grid-cols-2">
@@ -16,11 +17,12 @@
         <li class="flex gap-2">✓ Direct links to Depop, Grailed, Vestiaire, Poshmark</li>
         <li class="flex gap-2">✓ Up to 3 saved searches</li>
         <li class="flex gap-2 text-gray-400">✗ Email alerts</li>
-        <li class="flex gap-2 text-gray-400">✗ Priority checking</li>
+        <li class="flex gap-2 text-gray-400">✗ Hourly priority checking</li>
+        <li class="flex gap-2 text-gray-400">✗ Price history & trends</li>
       </ul>
-      <% if logged_in? %>
+      <% if logged_in? && current_user.free? %>
         <div class="mt-8 text-center text-sm text-gray-400">Your current plan</div>
-      <% else %>
+      <% elsif !logged_in? %>
         <a href="<%= signup_path %>" class="mt-8 block rounded-full border-2 border-gray-200 py-3 text-center font-medium hover:border-gray-400 transition">
           Sign up free
         </a>
@@ -28,8 +30,8 @@
     </div>
 
     <!-- Pro -->
-    <div class="rounded-2xl border-2 border-indigo-500 p-8 relative">
-      <span class="absolute -top-3 left-6 rounded-full bg-indigo-500 px-3 py-1 text-xs font-medium text-white">Popular</span>
+    <div class="rounded-2xl border-2 border-indigo-500 p-8 relative shadow-lg shadow-indigo-100">
+      <span class="absolute -top-3 left-6 rounded-full bg-indigo-500 px-3 py-1 text-xs font-medium text-white">Most popular</span>
       <h2 class="text-lg font-semibold">Pro</h2>
       <p class="mt-1 text-gray-500 text-sm">For serious grail hunters</p>
       <p class="mt-6"><span class="text-4xl font-bold">€8</span><span class="text-gray-400">/month</span></p>
@@ -37,13 +39,40 @@
         <li class="flex gap-2">✓ Everything in Free</li>
         <li class="flex gap-2">✓ <strong>Unlimited</strong> saved searches</li>
         <li class="flex gap-2">✓ Email alerts for new listings</li>
-        <li class="flex gap-2">✓ Priority checking (every hour)</li>
+        <li class="flex gap-2">✓ Hourly priority checking</li>
         <li class="flex gap-2">✓ Price history & trends</li>
         <li class="flex gap-2">✓ Early access to new platforms</li>
+        <li class="flex gap-2">✓ Cancel anytime</li>
       </ul>
-      <a href="https://buy.stripe.com/bJedR8at880w5ik83457W02" class="mt-8 block rounded-full bg-black py-3 text-center text-white font-medium hover:bg-gray-800 transition">
-        Get Pro — €8/mo
-      </a>
+      <% if logged_in? && current_user.pro? %>
+        <div class="mt-8 text-center">
+          <span class="inline-flex items-center gap-1 text-sm text-indigo-600 font-medium">✓ You're on Pro</span>
+        </div>
+      <% else %>
+        <a href="https://buy.stripe.com/bJedR8at880w5ik83457W02" class="mt-8 block rounded-full bg-black py-3 text-center text-white font-medium hover:bg-gray-800 transition">
+          Get Pro — €8/mo
+        </a>
+        <p class="mt-3 text-center text-xs text-gray-400">Secure payment via Stripe · Cancel anytime</p>
+      <% end %>
     </div>
+  </div>
+
+  <!-- FAQ -->
+  <div class="mt-16 max-w-2xl mx-auto">
+    <h2 class="text-xl font-bold text-center">Questions about Pro</h2>
+    <dl class="mt-6 space-y-4 text-sm">
+      <div>
+        <dt class="font-semibold">Can I cancel anytime?</dt>
+        <dd class="mt-1 text-gray-600">Yes. Cancel from your Stripe dashboard and you'll keep Pro until the end of your billing period.</dd>
+      </div>
+      <div>
+        <dt class="font-semibold">How do email alerts work?</dt>
+        <dd class="mt-1 text-gray-600">We check your saved searches hourly across all platforms. When new listings appear, you get an email with direct links.</dd>
+      </div>
+      <div>
+        <dt class="font-semibold">What if I hit the 3 saved search limit on Free?</dt>
+        <dd class="mt-1 text-gray-600">You can delete old saved searches to make room, or upgrade to Pro for unlimited saved searches.</dd>
+      </div>
+    </dl>
   </div>
 </div>
